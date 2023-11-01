@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Solar Power Forecast</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Include the Plotly library -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <h1><a href="{{url_for('index')}}">Solar Power Forecast</a></h1>
+    <form action="{{url_for('result')}}" method="POST">
+      <label for="dropdown">Select a city:</label>
+      <select id="dropdown" name="dropdown">
+        {% if selectedValue != 0 %}
+        <option value="selectedValue">{{selectedValue}}</option>
+        {% endif %}
+        <option value="Mumbai">Mumbai</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Kolkata">Kolkata</option>
+        <option value="Chennai">Chennai</option>
+      </select>
+      <br><br>
+      <input type="submit" value="Forecast">
+    </form>
+    <br><br>
+    {% if c == 1 %}
+    <div class="graph-container">
+      <!-- Insert the graph -->
+      {{ plot|safe }}
+    </div>
+    <div class="graph-container">
+      <!-- Insert the graph -->
+      {{ plot1|safe }}
+    </div>
+    <div class="graph-container">
+      <!-- Insert the graph -->
+      {{ plot2|safe }}
+    </div>
+    {% endif %}
+    <div class="box">
+      <p>An ensemble model that uses regression to predict solar power generation using solar irradiance, 
+        temperature, and wind speed.</p>
+      <p>Model Root Mean Squared Error: 3.874</p>
+      <p>Weather forecast data sourced from <a href="https://openweathermap.org/">OpenWeather</a>.</p>
+    </div>
+  </body>
+</html>
